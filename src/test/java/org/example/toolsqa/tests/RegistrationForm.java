@@ -46,10 +46,21 @@ public class RegistrationForm extends BaseTest {
         rfp.uploadPicture();
         rfp.inputTextIntoCurrentAddress(address);
 
+        rfp.clickSubmitButton();
 
 
 
-       // assertEquals("Log in", cp.checkTitleLogin(), "Incorrect title");
+        assertEquals("Student Name Aleksei Sheichenko\n" +
+                "Student Email sheichenko@example.ru\n" +
+                "Gender Male\n" +
+                "Mobile 8987998778\n" +
+                "Date of Birth 16 January,1997\n" +
+                "Subjects\n" +
+                "Hobbies\n" +
+                "Picture picture.jpg\n" +
+                "Address Russia, Samara, Frunze st. 5\n" +
+                "State and City", rfp.checkTextOnWindowAfterSubmitting());
+        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(), "Incorrect title");
     }
 
 

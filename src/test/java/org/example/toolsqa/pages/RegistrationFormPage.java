@@ -62,6 +62,12 @@ public class RegistrationFormPage {
     @FindBy(xpath = "//button[@id='submit']")
     private WebElement submitButton;
 
+    @FindBy(xpath = "//div[contains(text(),'Thanks for submitting the form')]")
+    private WebElement newWindowAfterSubmitting;
+
+    @FindBy(css = "[class='table table-dark table-striped table-bordered table-hover']>tbody")
+    private WebElement textOnWindowAfterSubmitting;
+
 
     public void inputTextIntoFirstNameField(String text) {
         firstNameField.sendKeys(text);
@@ -122,6 +128,27 @@ public class RegistrationFormPage {
 
         LOG.info("Entering text into the current address field");
     }
+
+    public void clickSubmitButton() {
+        submitButton.click();
+
+        LOG.info("Clicking on the submit button");
+    }
+
+    public String checkNewWindowAfterSubmitting() {
+
+        LOG.infoWithScreenshot("Checking if the window 'Thanks for submitting the form' is opened");
+        return newWindowAfterSubmitting.getText();
+    }
+
+    public String checkTextOnWindowAfterSubmitting() {
+
+        LOG.infoWithScreenshot("Checking if the window 'Thanks for submitting the form' is opened");
+        return textOnWindowAfterSubmitting.getText();
+    }
+
+
+
 
     public RegistrationFormPage(WebDriver driver) {
         this.driver = driver;
