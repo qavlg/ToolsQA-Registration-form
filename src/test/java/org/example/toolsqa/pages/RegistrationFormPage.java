@@ -44,13 +44,13 @@ public class RegistrationFormPage {
     @FindBy(css = "[class=\"react-datepicker__day react-datepicker__day--016\"]")
     private WebElement selectDay;
 
-    @FindBy(xpath = "//div[@class='subjects-auto-complete__value-container subjects-auto-complete__value-container--is-multi css-1hwfws3']")
+    @FindBy(xpath = "(//input[@autocapitalize='none'])[1]")
     private WebElement subjectFiled;
 
     @FindBy(css = "#currentAddress")
     private WebElement currentAddress;
 
-    @FindBy(xpath = "//input[@id='uploadPicture']")
+    @FindBy(css = "#uploadPicture")
     private WebElement selectPictureButton;
 
     @FindBy(xpath = "(//div[@class=' css-1hwfws3'])[1]")
