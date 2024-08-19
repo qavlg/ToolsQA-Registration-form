@@ -9,12 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import static org.example.toolsqa.Wait.myWait;
-
 public class RegistrationFormPage {
-
     private final AllureLogger LOG = new AllureLogger(LoggerFactory.getLogger(RegistrationFormPage.class));
-
     WebDriver driver;
 
     @FindBy(css = "input[id='firstName']")
@@ -26,10 +22,10 @@ public class RegistrationFormPage {
     @FindBy(css = "input[id='userEmail']")
     private WebElement emailField;
 
-    @FindBy(css = "[for=\"gender-radio-1\"]")
+    @FindBy(css = "[for='gender-radio-1']")
     private WebElement genderCheckBoxMale;
 
-    @FindBy(xpath = "//input[@placeholder='Mobile Number']")
+    @FindBy(css = "#userNumber")
     private WebElement mobileFiled;
 
     @FindBy(xpath = "//input[@id='dateOfBirthInput']")
@@ -41,10 +37,10 @@ public class RegistrationFormPage {
     @FindBy(xpath = "(//option[contains(@value,'0')])[1]")
     private WebElement selectMonth;
 
-    @FindBy(css = "[class=\"react-datepicker__day react-datepicker__day--016\"]")
+    @FindBy(css = "[class='react-datepicker__day react-datepicker__day--016']")
     private WebElement selectDay;
 
-    @FindBy(xpath = "(//input[@autocapitalize='none'])[1]")
+    @FindBy(css = "#subjectsInput")
     private WebElement subjectFiled;
 
     @FindBy(css = "#currentAddress")
@@ -53,10 +49,10 @@ public class RegistrationFormPage {
     @FindBy(css = "#uploadPicture")
     private WebElement selectPictureButton;
 
-    @FindBy(xpath = "(//div[@class=' css-1hwfws3'])[1]")
+    @FindBy(xpath = "//div[@id='state']//input")
     private WebElement selectStateDropDownList;
 
-    @FindBy(xpath = "(//div[@class=' css-tlfecz-indicatorContainer'])[2]")
+    @FindBy(css = "#react-select-4-input")
     private WebElement selectCityDropDownList;
 
     @FindBy(xpath = "//button[@id='submit']")
@@ -68,35 +64,29 @@ public class RegistrationFormPage {
     @FindBy(css = "[class='table table-dark table-striped table-bordered table-hover']>tbody")
     private WebElement textOnWindowAfterSubmitting;
 
-
     public void inputTextIntoFirstNameField(String text) {
         firstNameField.sendKeys(text);
-
-        LOG.info("Entering text into the first name field");
+        LOG.info("Enter first name: " + text);
     }
 
     public void inputTextIntoLastNameField(String text) {
         lastNameField.sendKeys(text);
-
-        LOG.info("Entering text into the last name field");
+        LOG.info("Enter last name: " + text);
     }
 
     public void inputTextIntoEmailField(String text) {
         emailField.sendKeys(text);
-
-        LOG.info("Entering text into the email field");
+        LOG.info("Enter email: " + text);
     }
 
     public void clickGenderCheckBox() {
-       genderCheckBoxMale.click();
-
-       LOG.info("Clicking on the gender check box");
+        genderCheckBoxMale.click();
+        LOG.info("Click on the 'Male' in the Gender check box");
     }
 
     public void inputTextIntoMobileFiled(String text) {
         mobileFiled.sendKeys(text);
-
-        LOG.info("Entering text into the mobile field");
+        LOG.info("Enter mobile: " + text);
     }
 
     public void selectDateOfBirth() {
@@ -105,50 +95,54 @@ public class RegistrationFormPage {
         selectMonth.click();
         selectDay.click();
 
-        LOG.info("Selecting the date of birth");
+        LOG.info("Select the date of birth");
     }
 
     public void inputTextIntoSubjectFiled(String text) {
-        subjectFiled.sendKeys(text);
+        for (char letter : text.toCharArray()) {
+            subjectFiled.sendKeys(String.valueOf(letter));
+        }
 
-        LOG.info("Entering text into the subject field");
+        subjectFiled.sendKeys("\n");
+        LOG.info("Enter subject: " + text);
     }
 
-
     public void uploadPicture() {
-        //selectPictureButton.click();
-        String filePath = new File("src/test/resources/picture.jpg").getAbsolutePath();
-        selectPictureButton.sendKeys(filePath);
+        String filePath = new File("src/test/resources/SimbirSoft.png").getAbsolutePath();
 
-        LOG.info("Uploading picture");
+        selectPictureButton.sendKeys(filePath);
+        LOG.info("Upload the picture");
     }
 
     public void inputTextIntoCurrentAddress(String text) {
         currentAddress.sendKeys(text);
+        LOG.info("Enter address: " + text);
+    }
 
-        LOG.info("Entering text into the current address field");
+    public void selectState(String text) {
+        selectStateDropDownList.sendKeys(text + "\n");
+        LOG.info("Select state: " + text);
+    }
+
+    public void selectCity(String text) {
+        selectCityDropDownList.sendKeys(text + "\n");
+        LOG.info("Select city: " + text);
     }
 
     public void clickSubmitButton() {
         submitButton.click();
-
-        LOG.info("Clicking on the submit button");
+        LOG.info("Click on the Submit button");
     }
 
     public String checkNewWindowAfterSubmitting() {
-
-        LOG.infoWithScreenshot("Checking if the window 'Thanks for submitting the form' is opened");
+        LOG.infoWithScreenshot("Check whether the window 'Thanks for submitting the form' is opened");
         return newWindowAfterSubmitting.getText();
     }
 
     public String checkTextOnWindowAfterSubmitting() {
-
-        LOG.infoWithScreenshot("Checking if the window 'Thanks for submitting the form' is opened");
+        LOG.infoWithScreenshot("Check whether the previously entered data match or not");
         return textOnWindowAfterSubmitting.getText();
     }
-
-
-
 
     public RegistrationFormPage(WebDriver driver) {
         this.driver = driver;

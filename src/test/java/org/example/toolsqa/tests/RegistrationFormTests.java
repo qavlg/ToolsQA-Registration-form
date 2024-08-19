@@ -8,12 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 @ExtendWith(Extension.class)
 
-public class RegistrationForm extends BaseTest {
+public class RegistrationFormTests extends BaseTest {
 
     RegistrationFormPage rfp;
 
@@ -25,7 +23,6 @@ public class RegistrationForm extends BaseTest {
         rfp = new RegistrationFormPage(getDriver());
     }
 
-
     @Test
     @DisplayName("#1. After entering valid data - registration is successful")
     public void titleLogin() {
@@ -33,7 +30,7 @@ public class RegistrationForm extends BaseTest {
         String lastName = "Sheichenko";
         String email = "sheichenko@example.ru";
         long mobile = 8987998778L;
-        String subject = "test.test";
+        String subject = "Maths";
         String address = "Russia, Samara, Frunze st. 5";
 
         rfp.inputTextIntoFirstNameField(firstName);
@@ -45,25 +42,21 @@ public class RegistrationForm extends BaseTest {
         rfp.inputTextIntoSubjectFiled(subject);
         rfp.uploadPicture();
         rfp.inputTextIntoCurrentAddress(address);
-
+        rfp.selectState("Haryana");
+        rfp.selectCity("Panipat");
         rfp.clickSubmitButton();
 
-
+        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(), "Incorrect title");
 
         assertEquals("Student Name Aleksei Sheichenko\n" +
                 "Student Email sheichenko@example.ru\n" +
                 "Gender Male\n" +
                 "Mobile 8987998778\n" +
                 "Date of Birth 16 January,1997\n" +
-                "Subjects\n" +
+                "Subjects Maths\n" +
                 "Hobbies\n" +
-                "Picture picture.jpg\n" +
+                "Picture SimbirSoft.png\n" +
                 "Address Russia, Samara, Frunze st. 5\n" +
-                "State and City", rfp.checkTextOnWindowAfterSubmitting());
-        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(), "Incorrect title");
+                "State and City Haryana Panipat", rfp.checkTextOnWindowAfterSubmitting(),"The entered data does not match");
     }
-
-
-
-
 }

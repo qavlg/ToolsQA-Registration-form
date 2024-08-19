@@ -1,7 +1,5 @@
 package org.example.toolsqa.tests;
 
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.toolsqa.AllureLogger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +17,6 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(chromeOptions);
@@ -35,8 +32,8 @@ public class BaseTest {
         LOG = new AllureLogger(LoggerFactory.getLogger(this.getClass()));
     }
 
-//    @AfterEach
-//    public void tearDown() {
-//        driver.quit();
-//    }
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
 }
