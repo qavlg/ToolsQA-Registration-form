@@ -52,7 +52,7 @@ public class RegistrationFormPage {
     @FindBy(xpath = "//div[@id='state']//input")
     private WebElement selectStateDropDownList;
 
-    @FindBy(css = "#react-select-4-input")
+    @FindBy(css = "div[id='city'] input")
     private WebElement selectCityDropDownList;
 
     @FindBy(xpath = "//button[@id='submit']")
@@ -135,12 +135,12 @@ public class RegistrationFormPage {
     }
 
     public String checkNewWindowAfterSubmitting() {
-        LOG.infoWithScreenshot("Check whether the window 'Thanks for submitting the form' is opened");
+        LOG.infoWithScreenshot("Check whether the window 'Thanks for submitting the form' is open");
         return newWindowAfterSubmitting.getText();
     }
 
     public String checkTextOnWindowAfterSubmitting() {
-        LOG.infoWithScreenshot("Check whether the previously entered data match or not");
+        LOG.infoWithScreenshot("Check whether the previously entered data is match");
         return textOnWindowAfterSubmitting.getText();
     }
 

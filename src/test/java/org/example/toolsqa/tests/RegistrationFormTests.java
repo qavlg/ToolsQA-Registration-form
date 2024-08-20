@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(Extension.class)
-
 public class RegistrationFormTests extends BaseTest {
 
     RegistrationFormPage rfp;
@@ -46,7 +45,8 @@ public class RegistrationFormTests extends BaseTest {
         rfp.selectCity("Panipat");
         rfp.clickSubmitButton();
 
-        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(), "Incorrect title");
+        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(),
+                "Incorrect title");
 
         assertEquals("Student Name Aleksei Sheichenko\n" +
                 "Student Email sheichenko@example.ru\n" +
@@ -57,6 +57,8 @@ public class RegistrationFormTests extends BaseTest {
                 "Hobbies\n" +
                 "Picture SimbirSoft.png\n" +
                 "Address Russia, Samara, Frunze st. 5\n" +
-                "State and City Haryana Panipat", rfp.checkTextOnWindowAfterSubmitting(),"The entered data does not match");
+                "State and City Haryana Panipat",
+                rfp.checkTextOnWindowAfterSubmitting(),
+                "The entered data does not match");
     }
 }
