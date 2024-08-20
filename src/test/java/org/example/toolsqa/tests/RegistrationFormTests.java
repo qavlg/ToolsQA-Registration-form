@@ -31,13 +31,16 @@ public class RegistrationFormTests extends BaseTest {
         long mobile = 8987998778L;
         String subject = "Maths";
         String address = "Russia, Samara, Frunze st. 5";
+        String year = "1997";
+        String month = "0";
+        String day = "16";
 
         rfp.inputTextIntoFirstNameField(firstName);
         rfp.inputTextIntoLastNameField(lastName);
         rfp.inputTextIntoEmailField(email);
         rfp.clickGenderCheckBox();
         rfp.inputTextIntoMobileFiled(String.valueOf(mobile));
-        rfp.selectDateOfBirth();
+        rfp.selectDateOfBirth(year, month, day);
         rfp.inputTextIntoSubjectFiled(subject);
         rfp.uploadPicture();
         rfp.inputTextIntoCurrentAddress(address);

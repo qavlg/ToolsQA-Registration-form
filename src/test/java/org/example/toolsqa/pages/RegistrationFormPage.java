@@ -1,6 +1,7 @@
 package org.example.toolsqa.pages;
 
 import org.example.toolsqa.AllureLogger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+
+import static org.example.toolsqa.Wait.myWait;
 
 public class RegistrationFormPage {
     private final AllureLogger LOG = new AllureLogger(LoggerFactory.getLogger(RegistrationFormPage.class));
@@ -89,13 +92,33 @@ public class RegistrationFormPage {
         LOG.info("Enter mobile: " + text);
     }
 
-    public void selectDateOfBirth() {
+    public void selectDateOfBirth(String year, String month, String day) {
         dateOfBirthFiled.click();
-        selectYear.click();
-        selectMonth.click();
-        selectDay.click();
-
+        setYear(year);
+        setMonth(month);
+        setDay(day);
         LOG.info("Select the date of birth");
+    }
+
+    private void setYear(String year) {
+        WebElement neededYear = driver.findElement(
+                By.xpath(String.format("//option[contains(@value,'%s')]", year))
+        );
+        neededYear.click();
+    }
+
+    private void setMonth(String month) {
+        WebElement neededMonth = driver.findElement(
+                By.xpath(String.format("(//option[contains(@value,'%s')])[1]", month))
+        );
+        neededMonth.click();
+    }
+
+    private void setDay(String day) {
+        WebElement neededDay = driver.findElement(
+                By.cssSelector(String.format("[class='react-datepicker__day react-datepicker__day--0%s']", day))
+        );
+        neededDay.click();
     }
 
     public void inputTextIntoSubjectFiled(String text) {
@@ -130,6 +153,7 @@ public class RegistrationFormPage {
     }
 
     public void clickSubmitButton() {
+        myWait(10).clickable(submitButton);
         submitButton.click();
         LOG.info("Click on the Submit button");
     }
