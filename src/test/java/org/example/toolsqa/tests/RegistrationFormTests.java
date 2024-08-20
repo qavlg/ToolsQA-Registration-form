@@ -51,7 +51,7 @@ public class RegistrationFormTests extends BaseTest {
         assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(),
                 "Incorrect title");
 
-        assertEquals("Student Name Aleksei Sheichenko\n" +
+       String expected = "Student Name Aleksei Sheichenko\n" +
                 "Student Email sheichenko@example.ru\n" +
                 "Gender Male\n" +
                 "Mobile 8987998778\n" +
@@ -60,8 +60,12 @@ public class RegistrationFormTests extends BaseTest {
                 "Hobbies\n" +
                 "Picture SimbirSoft.png\n" +
                 "Address Russia, Samara, Frunze st. 5\n" +
-                "State and City Haryana Panipat",
-                rfp.checkTextOnWindowAfterSubmitting(),
-                "The entered data does not match");
+                "State and City Haryana Panipat";
+
+        String[] expectedArray = expected.split("\n");
+        String[] actualArray = rfp.checkTextOnWindowAfterSubmitting().split("\n");
+        for (int i = 0; i < expectedArray.length; i++) {
+            assertEquals(expectedArray[i], actualArray[i], "The entered data does not match at index " + i);
+        }
     }
 }

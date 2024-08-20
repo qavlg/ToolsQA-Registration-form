@@ -34,15 +34,6 @@ public class RegistrationFormPage {
     @FindBy(xpath = "//input[@id='dateOfBirthInput']")
     private WebElement dateOfBirthFiled;
 
-    @FindBy(xpath = "//option[contains(@value,'1997')]")
-    private WebElement selectYear;
-
-    @FindBy(xpath = "(//option[contains(@value,'0')])[1]")
-    private WebElement selectMonth;
-
-    @FindBy(css = "[class='react-datepicker__day react-datepicker__day--016']")
-    private WebElement selectDay;
-
     @FindBy(css = "#subjectsInput")
     private WebElement subjectFiled;
 
@@ -116,7 +107,7 @@ public class RegistrationFormPage {
 
     private void setDay(String day) {
         WebElement neededDay = driver.findElement(
-                By.cssSelector(String.format("[class='react-datepicker__day react-datepicker__day--0%s']", day))
+                By.cssSelector(String.format("[class*='react-datepicker__day--0%s']", day))
         );
         neededDay.click();
     }
