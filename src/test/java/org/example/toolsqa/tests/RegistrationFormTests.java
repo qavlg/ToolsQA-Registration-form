@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(Extension.class)
@@ -48,10 +49,7 @@ public class RegistrationFormTests extends BaseTest {
         rfp.selectCity("Panipat");
         rfp.clickSubmitButton();
 
-        assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(),
-                "Incorrect title");
-
-       String expected = "Student Name Aleksei Sheichenko\n" +
+        String expected = "Student Name Aleksei Sheichenko\n" +
                 "Student Email sheichenko@example.ru\n" +
                 "Gender Male\n" +
                 "Mobile 8987998778\n" +
@@ -64,8 +62,15 @@ public class RegistrationFormTests extends BaseTest {
 
         String[] expectedArray = expected.split("\n");
         String[] actualArray = rfp.checkTextOnWindowAfterSubmitting().split("\n");
-        for (int i = 0; i < expectedArray.length; i++) {
-            assertEquals(expectedArray[i], actualArray[i], "The entered data does not match at index " + i);
-        }
+
+        assertAll("Check multiple conditions",
+                () -> assertEquals("Thanks for submitting the form", rfp.checkNewWindowAfterSubmitting(),
+                        "Incorrect title"),
+                () -> {
+                    for (int i = 0; i < expectedArray.length; i++) {
+                        assertEquals(expectedArray[i], actualArray[i], "The entered data does not match at index " + i);
+                    }
+                }
+        );
     }
 }
